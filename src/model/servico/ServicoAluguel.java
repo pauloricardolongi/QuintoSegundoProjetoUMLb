@@ -1,23 +1,24 @@
 package model.servico;
 
 import model.entidades.AluguelAutomovel;
+
 import model.entidades.ValorFatura;
 
 public class ServicoAluguel {
 	private Double precoPorHora;
 	private Double precoPorDia;
 	
-	private TaxServBrasil taxa_serv_brasil;
+	private TaxaServico taxaServico; 
 	
 	public ServicoAluguel() {
 		
 	}
 
-	public ServicoAluguel(Double precoPorHora, Double precoPorDia, TaxServBrasil taxa_serv_brasil) {
+	public ServicoAluguel(Double precoPorHora, Double precoPorDia, TaxaServico taxaServico) {
 		
 		this.precoPorHora = precoPorHora;
 		this.precoPorDia = precoPorDia;
-		this.taxa_serv_brasil = taxa_serv_brasil;
+		this.taxaServico = taxaServico;
 	}
 
 	public void processoFatura(AluguelAutomovel aluguel_automovel) {
@@ -33,7 +34,7 @@ public class ServicoAluguel {
 			pagBasico = Math.ceil(horas/24)* precoPorDia;
 		}
 		//calcular imposto
-		double taxaImposto= taxa_serv_brasil.taxa(pagBasico);
+		double taxaImposto= taxaServico.taxa(pagBasico);
 		aluguel_automovel.setValorFatura(new ValorFatura(pagBasico, taxaImposto));
 	} 
 }
